@@ -38,6 +38,13 @@ public class ProdutosDAO {
         int status;
         try{
             prep = conn.prepareStatement("INSERT INTO produtos(nome, valor) VALUES (?,?)");
+            prep.setString(1, produto.getNome());
+            prep.setInt(2, produto.getValor());
+            status = prep.executeUpdate();
+            return status;
+        } catch(SQLException e){
+            System.out.println("Falha ao inserir produto na base de dados. " + e.getMessage());
+            return e.getErrorCode();
         }
     }
     
