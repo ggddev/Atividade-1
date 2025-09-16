@@ -1,13 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author Adm
- */
-
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
@@ -40,7 +30,9 @@ public class ProdutosDAO {
             prep = conn.prepareStatement("INSERT INTO produtos(nome, valor) VALUES (?,?)");
             prep.setString(1, produto.getNome());
             prep.setInt(2, produto.getValor());
+            prep.setString(3, produto.getStatus());
             status = prep.executeUpdate();
+            System.out.println("Sucesso ao inserir produto.");
             return status;
         } catch(SQLException e){
             System.out.println("Falha ao inserir produto na base de dados. " + e.getMessage());
