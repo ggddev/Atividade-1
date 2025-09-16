@@ -126,7 +126,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
         ProdutosDTO produto = new ProdutosDTO();
         ProdutosDAO pDAO = new ProdutosDAO();
         String nome = cadastroNome.getText();
-        String valor = cadastroValor.getText();
+        int valor = Integer.parseInt(cadastroValor.getText());
         String status = "A Venda";
         
         boolean cxc = pDAO.conectar();
@@ -134,7 +134,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
             System.out.println("Falha ao conectar no banco de dados.");
         } else{
             produto.setNome(nome);
-            produto.setValor(Integer.parseInt(valor));
+            produto.setValor(valor);
             produto.setStatus(status);
         
             pDAO.cadastrarProduto(produto);

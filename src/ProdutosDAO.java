@@ -5,12 +5,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ProdutosDAO {
     
     Connection conn;
-    PreparedStatement prep;
-    ResultSet resultset;
+    PreparedStatement prep = null;
+    ResultSet rs = null;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
     public boolean conectar(){
@@ -41,13 +42,26 @@ public class ProdutosDAO {
         }
     }
     
-    public ArrayList<ProdutosDTO> listarProdutos(){
-        
-        return listagem;
+    public ProdutosDTO listarProdutos(int id){
+        try{
+            ProdutosDTO pDTO = new ProdutosDTO();
+            prep = conn.prepareStatement("SELECT * FROM produtos WHERE id = ?");
+            prep.setInt(1, id);
+            rs = prep.executeQuery();
+            
+            rs.next();
+            
+            pDTO.setId(id);
+            pDTO.setNome(rs.getString("nome"));
+            pDTO.setValor(rs.getInt("valor"));
+            pDTO.setStatus(rs.getString("status"));
+            
+            return pDTO;
+        } catch(SQLException e){
+            System.out.println("Falha ao realizar busca de dados. " + e.getMessage());
+            return null;
+        }
     }
-    
-    
-    
         
 }
 
