@@ -27,15 +27,16 @@ public class ProdutosDAO {
     public int cadastrarProduto (ProdutosDTO produto){
         int status;
         try{
-            prep = conn.prepareStatement("INSERT INTO produtos(nome, valor) VALUES (?,?)");
+            prep = conn.prepareStatement("INSERT INTO produtos(nome, valor, status) VALUES (?,?,?)");
             prep.setString(1, produto.getNome());
             prep.setInt(2, produto.getValor());
             prep.setString(3, produto.getStatus());
             status = prep.executeUpdate();
-            System.out.println("Sucesso ao inserir produto.");
+            JOptionPane.showMessageDialog(null, "Sucesso ao inserir produto.");
             return status;
         } catch(SQLException e){
-            System.out.println("Falha ao inserir produto na base de dados. " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Falha ao inserir produto.");
+            System.out.println("Falha: " + e.getMessage());
             return e.getErrorCode();
         }
     }
